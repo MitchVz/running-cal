@@ -1,0 +1,113 @@
+@page {
+    size: A4 landscape;
+}
+
+@media print {
+    body {
+        background-color: white;
+    }
+}
+
+$primary-color: #6495ed;
+$dark-border-color: black;
+$light-border-color: #ccc;
+
+.cal-page {
+    width: 80%;
+    margin: 40px auto;
+    padding: 60px 40px;
+    background: white;
+    display: grid;
+    grid-template-rows: 120px 40px 500px;
+    grid-template-areas:
+        "header"
+        "weekdays"
+        "cells";
+    page-break-before: always;
+
+    @media print {
+        width: 90%;
+        margin: auto;
+    }
+}
+
+.cal-header {
+    grid-area: header;
+    border: 1px solid $dark-border-color;
+    position: relative;
+
+    h1 {
+        font-weight: 400;
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        font-size: 40px;
+        margin: 0;
+    }
+}
+
+.weekdays {
+    grid-area: weekdays;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 2px solid $dark-border-color;
+    border-top-width: 1px;
+    background-color: $primary-color;
+    color: white;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+    }
+}
+
+.cal-body {
+    grid-area: cells;
+    border: 1px solid $dark-border-color;
+    border-top: none;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.cal-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    &:last-child .cal-cell {
+        border-bottom: none;
+    }
+}
+
+.cal-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $light-border-color;
+    border-left: none;
+    border-top: none;
+    padding: 10px;
+    color: $dark-border-color;
+    position: relative;
+
+    &:first-child,
+    &:last-child {
+        background-color: lighten($primary-color, 50%);
+    }
+
+    &:last-child {
+        border-right: none;
+    }
+
+    .cell-checkbox {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        border: 1px solid $light-border-color;
+        border-right: none;
+        border-top: none;
+    }
+}
